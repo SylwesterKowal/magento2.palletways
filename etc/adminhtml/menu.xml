@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Wm21w_Palletways::parent" title="Palletways" module="Wm21w_Palletways" sortOrder="100" resource="Wm21w_Palletways::parent"/>
+        <add id="Wm21w_Palletways::index" title="Palletways Index" module="Wm21w_Palletways" sortOrder="10" action="palletways/index" resource="Wm21w_Palletways::index" parent="Wm21w_Palletways::parent"/>
+		
+    </menu>
+</config>

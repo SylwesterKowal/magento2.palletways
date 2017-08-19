@@ -1,0 +1,30 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+
+	<head>
+        <title>Track a delivery</title>
+        <!-- 
+		demo
+		<css src="Wm21w_Palletways::css/css.css"/>
+		<script src="Wm21w_Palletways::js/js.js"/>
+		<css src="jquery/fileUploader/css/jquery.fileupload-ui.css"/>
+		<script src="path/file.js" defer="defer"/>
+		<link src="http://url.com" src_type="url"/>
+		<remove src="path/remove/file.css"/>
+
+		-->
+    </head> 
+
+    <body>
+
+
+        <referenceContainer name="sidebar.main">
+            <block class="Wm21w\Palletways\Block\Index\Sidebar" name="palletways_index_sidebar" before="-" template="Wm21w_Palletways::palletways_index_sidebar.phtml"/>
+        </referenceContainer>
+
+        <referenceContainer name="content">
+            <block class="Wm21w\Palletways\Block\Index\Index" name="palletways_index_index" template="Wm21w_Palletways::palletways_index_index.phtml"/>
+        </referenceContainer>
+
+
+    </body>
+</page>
