@@ -112,6 +112,7 @@ class Index extends \Magento\Backend\App\Action
             ->getPath('var');
 
         $path = $base . $this->folder;
+        $this->makedirs($path);
         $this->file = $path . $this->order->getIncrementId() . '.csv';
         return $this;
     }
@@ -285,6 +286,11 @@ class Index extends \Magento\Backend\App\Action
 
         $ver = json_decode($result, true);
         return $ver;
+    }
+
+    function makedirs($dirpath, $mode = 0777)
+    {
+        return is_dir($dirpath) || @mkdir($dirpath, $mode, true);
     }
 }
 
