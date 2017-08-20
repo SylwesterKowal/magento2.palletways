@@ -1,1 +1,17 @@
-Palletways
+Palletways Label for Order [<?php echo $order_id; ?>]: <a
+        href="<?php echo $palletways_label; ?>">get
+    label</a>
+<br/>
+<br/>
+Status : <?php echo $palletways_status['status']; ?><br/>
+Info: <br/>
+<?php
+foreach ($palletways_status['notes'] as $note) {
+    echo $note . "<br/>";
+}
+?>
+<br/><br/>
+<?php // echo print_r($palletways_status, true); ?>
+---<br/>
+ver: <?php echo $palletways_version; ?>
+

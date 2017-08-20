@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
-	<head>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
         <title>Palletways</title>
         <!-- 
 		demo
@@ -11,10 +12,16 @@
 		<link src="http://url.com" src_type="url"/>
 		<remove src="path/remove/file.css"/>
 		-->
-    </head> 
-	<body>
+    </head>
+    <body>
         <referenceContainer name="content">
-            <block class="Wm21w\Palletways\Block\Adminhtml\Index\Index" name="palletways_block_adminhtml_index_index"  template="Wm21w_Palletways::palletways_index_index.phtml" />
+            <block class="Wm21w\Palletways\Block\Adminhtml\Index\Index" name="palletways_block_adminhtml_index_index"
+                   template="Wm21w_Palletways::palletways_index_index.phtml">
+                <arguments>
+                    <argument name="order_id" xsi:type="string">testvalue</argument>
+                </arguments>
+            </block>
+
         </referenceContainer>
     </body>
 </page>
