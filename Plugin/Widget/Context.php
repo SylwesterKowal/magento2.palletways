@@ -30,7 +30,7 @@ class Context
                 'custom_button',
                 [
                     'label' => __('Palletways'),
-                    'onclick' => 'window.open(\'' . $this->getCustomUrl($order_id) . '\',\'\',\'width=800,height=800\')',
+                    'onclick' => 'window.open(\'' . $this->getCustomUrl($order_id) . '\',\'blank\',\'width=800,height=800\')',
                     'class' => 'ship'
                 ]
             );
