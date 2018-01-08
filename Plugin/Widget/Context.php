@@ -22,12 +22,10 @@ class Context
         $buttonList
     )
     {
-        if (!$this->_moduleHelper->isEnabled()) return;
-
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $request = $objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
         $order_id = $request->getParam('order_id');
-        if ($request->getFullActionName() == 'sales_order_view') {
+        if ($request->getFullActionName() == 'sales_order_view' && $this->_moduleHelper->isEnabled()) {
             $buttonList->add(
                 'custom_button',
                 [
