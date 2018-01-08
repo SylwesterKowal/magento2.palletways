@@ -21,14 +21,11 @@ class Index extends \Magento\Backend\App\Action
     protected $apiUrl = 'https://portal.palletways.com/api/pc_psief_test?apikey=PALLETWAYSAPIKEY';
 //    protected $apiUrl = 'https://portal.palletways.com/api/testConSubmit?apikey=PALLETWAYSAPIKEY';
     protected $apiVerUrl = 'https://portal.palletways.com/api/version?apikey=PALLETWAYSAPIKEY';
-    //protected $apiStatusUrl = 'https://portal.palletways.com/api/testConStatus/PALLETWAYSID?apikey=PALLETWAYSAPIKEY';
+//    protected $apiStatusUrl = 'https://portal.palletways.com/api/testConStatus/PALLETWAYSID?apikey=PALLETWAYSAPIKEY';
     protected $apiStatusUrl = 'https://portal.palletways.com/api/conStatusById/PALLETWAYSID?apikey=PALLETWAYSAPIKEY';
     protected $apiLabelUrl = 'https://portal.palletways.com/api/getLabelsById/PALLETWAYSID?apikey=PALLETWAYSAPIKEY';
     protected $folder = '/importexport/palletways/';
 
-
-	
-	
     protected function init()
     {
 

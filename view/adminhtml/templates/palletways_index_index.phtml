@@ -1,17 +1,10 @@
-Palletways Label for Order [<?php echo $order_id; ?>]: <a
-        href="<?php echo $palletways_label; ?>">get
-    label</a>
-<br/>
-<br/>
-Status : <?php echo $palletways_status['status']; ?><br/>
-Info: <br/>
+<h3><?php echo __('Create a Consignment') ?></h3>
 <?php
-foreach ($palletways_status['notes'] as $note) {
-    echo $note . "<br/>";
-}
-?>
-<br/><br/>
-<?php // echo print_r($palletways_status, true); ?>
----<br/>
-ver: <?php echo $palletways_version; ?>
+$response = json_decode($block->getCreateConsignment());
 
+
+if ($response->Status->Code == 'OK' || $response->Status->Description == 'Successful') {
+    $block->getRedirectPalletways('https://portal.palletways.com/login_v2.php', 'en');
+} else {
+    var_dump($block->getCreateConsignment());
+}
