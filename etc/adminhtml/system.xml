@@ -6,8 +6,8 @@
         </tab>
         <section id="palletways" translate="label" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
             <class>separator-top</class>
-            <!--<label>Palletways</label>-->
-            <!--<tab>sales</tab>-->
+            <label>Palletways Setting</label>
+            <tab>wmw21w</tab>
             <resource>Wm21w_Palletways::palletways</resource>
             <group id="general" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Palletways Configuration</label>
