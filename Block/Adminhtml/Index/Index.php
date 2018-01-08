@@ -6,13 +6,19 @@ class Index extends \Magento\Backend\Block\Widget\Container
 {
     protected $request;
     protected $item;
-	protected $billitem;
+    protected $billitem;
     protected $objectManager;
+    protected $_moduleHelper;
 
-    public function __construct(\Magento\Backend\Block\Widget\Context $context, array $data = [], \Magento\Framework\App\Request\Http $request)
+    public function __construct(
+        \Magento\Backend\Block\Widget\Context $context, array $data = [], \Magento\Framework\App\Request\Http $request,
+        \Wm21w\Palletwazs\Helper\Data $moduleHelper
+    )
     {
         $this->request = $request;
         parent::__construct($context, $data);
+
+        $this->_moduleHelper = $moduleHelper;
     }
 
     public function getPalletwaysDecodeJson($apiUrl)
@@ -70,47 +76,50 @@ class Index extends \Magento\Backend\Block\Widget\Container
             return 1;
         }
     }
-	
-	public function getBillUnit($weight) 
-	{
-		if ( $weight <= 150 ) {
-			$this->billitem .= '<BillUnit>';
-			$this->billitem .= '<Type>MQP</Type>';
-			$this->billitem .= '<Amount>1</Amount>';
-			$this->billitem .= '</BillUnit>';
-		} else if ( $weight > 150 && $weight <= 250 ) {
-			$this->billitem .= '<BillUnit>';
-			$this->billitem .= '<Type>QP</Type>';
-			$this->billitem .= '<Amount>1</Amount>';
-			$this->billitem .= '</BillUnit>';			
-		} else if ( $weight > 250 && $weight <= 550 ) {
-			$this->billitem .= '<BillUnit>';
-			$this->billitem .= '<Type>HP</Type>';
-			$this->billitem .= '<Amount>1</Amount>';
-			$this->billitem .= '</BillUnit>';			
-		} else if ( $weight > 550 && $weight <= 750 ) {
-			$this->billitem .= '<BillUnit>';
-			$this->billitem .= '<Type>LP</Type>';
-			$this->billitem .= '<Amount>1</Amount>';
-			$this->billitem .= '</BillUnit>';			
-		} else if ( $weight > 750 && $weight <= 1200 ) {
-			$this->billitem .= '<BillUnit>';
-			$this->billitem .= '<Type>FP</Type>';
-			$this->billitem .= '<Amount>1</Amount>';
-			$this->billitem .= '</BillUnit>';			
-		}
-		return $this->billitem;
-	}
+
+    public function getBillUnit($weight)
+    {
+        if ($weight <= 150) {
+            $this->billitem .= '<BillUnit>';
+            $this->billitem .= '<Type>MQP</Type>';
+            $this->billitem .= '<Amount>1</Amount>';
+            $this->billitem .= '</BillUnit>';
+        } else if ($weight > 150 && $weight <= 250) {
+            $this->billitem .= '<BillUnit>';
+            $this->billitem .= '<Type>QP</Type>';
+            $this->billitem .= '<Amount>1</Amount>';
+            $this->billitem .= '</BillUnit>';
+        } else if ($weight > 250 && $weight <= 550) {
+            $this->billitem .= '<BillUnit>';
+            $this->billitem .= '<Type>HP</Type>';
+            $this->billitem .= '<Amount>1</Amount>';
+            $this->billitem .= '</BillUnit>';
+        } else if ($weight > 550 && $weight <= 750) {
+            $this->billitem .= '<BillUnit>';
+            $this->billitem .= '<Type>LP</Type>';
+            $this->billitem .= '<Amount>1</Amount>';
+            $this->billitem .= '</BillUnit>';
+        } else if ($weight > 750 && $weight <= 1200) {
+            $this->billitem .= '<BillUnit>';
+            $this->billitem .= '<Type>FP</Type>';
+            $this->billitem .= '<Amount>1</Amount>';
+            $this->billitem .= '</BillUnit>';
+        }
+        return $this->billitem;
+    }
 
     public function getCreateConsignment()
     {
-        $shippingAddress = $this->getOrder()->getShippingAddress();
+        if (!$this->_moduleHelper->isEnabled()) return;
+
         $helper = $this->getObjectManager()->create('Magento\Framework\Pricing\Helper\Data');
         $amount = $helper->currency(number_format($this->getOrder()->getGrandTotal()), false, false);
-		$weight = $this->getProductsWeight();
-		$billUnit = $this->getBillUnit($weight); 
+        $weight = $this->getProductsWeight();
+        $billUnit = $this->getBillUnit($weight);
 
         $incrementId = $this->getOrder()->getIncrementId();
+        $shippingAddress = $this->getOrder()->getShippingAddress();
+
         $data = '<?xml version="1.0" encoding="UTF-8"?>
 					<Manifest>
 					  <Date>' . date('Y-m-d') . '</Date>
@@ -160,7 +169,7 @@ class Index extends \Magento\Backend\Block\Widget\Container
 							  <Amount>1</Amount>
 							</Return>
 							<Pallet></Pallet>
-							' .$billUnit. '
+							' . $billUnit . '
 							<ClientUnit>
 							  <Type>TMQP</Type>
 							  <Amount>6</Amount>
@@ -180,8 +189,8 @@ class Index extends \Magento\Backend\Block\Widget\Container
 							<NotificationSet>
 							  <SysGroup></SysGroup>
 							  <SysGroup></SysGroup>
-							  <SMSNumber>'.$shippingAddress->getTelephone().'</SMSNumber>
-							  <Email>'.$shippingAddress->getEmail().'</Email>
+							  <SMSNumber>' . $shippingAddress->getTelephone() . '</SMSNumber>
+							  <Email>' . $shippingAddress->getEmail() . '</Email>
 							</NotificationSet>
 							<CashPayment>
 							  <Amount>' . $amount . '</Amount>
@@ -195,7 +204,9 @@ class Index extends \Magento\Backend\Block\Widget\Container
 					  </Depot>
 					</Manifest>';
 
-        $data = array('apikey' => '2fCPFltHk0pk8pWgoRyqG%2B5DtVweX6tgZEnLcwOH64s%3D', 'inputformat' => 'xml', 'outputformat' => 'json', 'data' => $data, 'commit' => 'true');
+        $apikey = $this->_moduleHelper->getApiKey();
+//        var_dump($apikey);
+        $data = array('apikey' => $apikey, 'inputformat' => 'xml', 'outputformat' => 'json', 'data' => $data, 'commit' => 'true');
         $options = array(
             'http' => array(
                 'header' => "Content-type: application/x-www-form-urlencoded\r\n",
