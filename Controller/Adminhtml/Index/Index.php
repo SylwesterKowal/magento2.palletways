@@ -17,7 +17,7 @@ class Index extends \Magento\Backend\App\Action
     protected $file;
     protected $cav = [];
     protected $_directoryList;
-    protected $apiKey = '2fCPFltHk0pk8pWgoRyqG%2B5DtVweX6tgZEnLcwOH64s%3D';
+    protected $apiKey = '';
     protected $apiUrl = 'https://portal.palletways.com/api/pc_psief_test?apikey=PALLETWAYSAPIKEY';
 //    protected $apiUrl = 'https://portal.palletways.com/api/testConSubmit?apikey=PALLETWAYSAPIKEY';
     protected $apiVerUrl = 'https://portal.palletways.com/api/version?apikey=PALLETWAYSAPIKEY';
@@ -52,59 +52,63 @@ class Index extends \Magento\Backend\App\Action
 
     public function execute()
     {
-        $this->init();
-        $request = $this->objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
-        $order_id = $request->getParam('order_id');
-
-        $this->order = $this->objectManager->create('\Magento\Sales\Model\Order')->load($order_id);
+//        $this->init();
+//        $request = $this->objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
+//        $order_id = $request->getParam('order_id');
+//
+//        $this->order = $this->objectManager->create('\Magento\Sales\Model\Order')->load($order_id);
 
         $this->_view->loadLayout();
         $this->_view->getLayout()->initMessages();
-        $block = $this->_view->getLayout()->getBlock('palletways_block_adminhtml_index_index');
-        $palletconnectid = $this->order->getPalletconnectid();
-        if (!empty($palletconnectid)) {
-            $block->assign([
-                'api_key' => $this->apiKey,
-                'order_id' => $this->order->getIncrementId(),
-                'palletways_id' => $palletconnectid,
-                'palletways_version' => $this->getPalletwaysVersion(),
-                'palletways_status' => $this->getPalletwaysStatus($palletconnectid),
-                'palletways_label' => str_replace('PALLETWAYSID', $palletconnectid, $this->apiLabelUrl)
-            ]);
+//        $block = $this->_view->getLayout()->getBlock('palletways_block_adminhtml_index_index');
 
-            $this->objectManager->create('\Psr\Log\LoggerInterface')->addDebug($palletconnectid);
-        } else {
-            $result = $this->setCsv()
-                ->getFile()
-                ->saveCsv()
-                ->sendFile();
 
-            $palletways = json_decode($result);
-            $this->objectManager->create('\Psr\Log\LoggerInterface')->addDebug(print_r($palletways, true));
-
-            if (isset($palletways->id) && !empty($palletways->id)) {
-                $this->order->setPalletconnectid($palletways->id);
-                $this->order->save();
-
-                $block->assign([
-                    'api_key' => $this->apiKey,
-                    'order_id' => $this->order->getIncrementId(),
-                    'palletways_id' => $palletways->id,
-                    'palletways_version' => $this->getPalletwaysVersion(),
-                    'palletways_status' => $this->getPalletwaysStatus($palletways->id),
-                    'palletways_label' => str_replace('PALLETWAYSID', $palletways->id, $this->apiLabelUrl)
-                ]);
-            }else{
-                $block->assign([
-                    'api_key' => $this->apiKey,
-                    'order_id' => ' - ',
-                    'palletways_id' =>'',
-                    'palletways_version' => $this->getPalletwaysVersion(),
-                    'palletways_status' => ' - ',
-                    'palletways_label' => ' - '
-                ]);
-            }
-        }
+//        $palletconnectid = $this->order->getPalletconnectid();
+//        if (!empty($palletconnectid)) {
+//            $block->assign([
+//                'api_key' => $this->apiKey,
+//                'order_id' => $this->order->getIncrementId(),
+//                'palletways_id' => $palletconnectid,
+//                'palletways_version' => $this->getPalletwaysVersion(),
+//                'palletways_status' => $this->getPalletwaysStatus($palletconnectid),
+//                'palletways_label' => str_replace('PALLETWAYSID', $palletconnectid, $this->apiLabelUrl)
+//            ]);
+//
+//            $this->objectManager->create('\Psr\Log\LoggerInterface')->addDebug($palletconnectid);
+//        }
+//
+//        else {
+//            $result = $this->setCsv()
+//                ->getFile()
+//                ->saveCsv()
+//                ->sendFile();
+//
+//            $palletways = json_decode($result);
+//            $this->objectManager->create('\Psr\Log\LoggerInterface')->addDebug(print_r($palletways, true));
+//
+//            if (isset($palletways->id) && !empty($palletways->id)) {
+//                $this->order->setPalletconnectid($palletways->id);
+//                $this->order->save();
+//
+//                $block->assign([
+//                    'api_key' => $this->apiKey,
+//                    'order_id' => $this->order->getIncrementId(),
+//                    'palletways_id' => $palletways->id,
+//                    'palletways_version' => $this->getPalletwaysVersion(),
+//                    'palletways_status' => $this->getPalletwaysStatus($palletways->id),
+//                    'palletways_label' => str_replace('PALLETWAYSID', $palletways->id, $this->apiLabelUrl)
+//                ]);
+//            }else{
+//                $block->assign([
+//                    'api_key' => $this->apiKey,
+//                    'order_id' => ' - ',
+//                    'palletways_id' =>'',
+//                    'palletways_version' => $this->getPalletwaysVersion(),
+//                    'palletways_status' => ' - ',
+//                    'palletways_label' => ' - '
+//                ]);
+//            }
+//        }
         $this->_view->renderLayout();
     }
 
