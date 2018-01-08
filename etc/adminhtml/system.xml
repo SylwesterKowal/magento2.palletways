@@ -1,25 +1,20 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <tab id="wmw21w" translate="label" sortOrder="10">
-            <label>Palletways</label>
+        <tab id="wm21w" translate="label" sortOrder="1">
+            <label>21</label>
         </tab>
-        <section id="palletways" translate="label" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+        <section id="palletways" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
             <class>separator-top</class>
-            <label>Palletways Setting</label>
-            <tab>wmw21w</tab>
+            <label>Palletways</label>
+            <tab>wm21w</tab>
             <resource>Wm21w_Palletways::palletways</resource>
-            <group id="general" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Palletways Configuration</label>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
                 <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Module Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <!--<field id="palletways_api_url" translate="label comment" sortOrder="20" type="text" showInDefault="1" >-->
-                    <!--<label>Palletways Api URL</label>-->
-                    <!--<validate>required-entry</validate>-->
-                    <!--<comment>Example: https://portal.palletways.com/api/pc_psief_test?apikey=</comment>-->
-                <!--</field>-->
                 <field id="palletways_api_key" translate="label comment" sortOrder="30" type="text" showInDefault="1" >
                     <label>Palletways Api KEY</label>
                     <validate>required-entry</validate>
