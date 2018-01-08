@@ -12,7 +12,7 @@ class Index extends \Magento\Backend\Block\Widget\Container
 
     public function __construct(
         \Magento\Backend\Block\Widget\Context $context, array $data = [], \Magento\Framework\App\Request\Http $request,
-        \Wm21w\Palletwazs\Helper\Data $moduleHelper
+        \Wm21w\Palletways\Helper\Data $moduleHelper
     )
     {
         $this->request = $request;
