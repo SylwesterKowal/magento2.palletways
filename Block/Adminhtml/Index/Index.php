@@ -134,7 +134,7 @@ class Index extends \Magento\Backend\Block\Widget\Container
 							<DeliveryDate></DeliveryDate>
 							<DeliveryTime></DeliveryTime>
 							<Service>
-							  <Type>Collection</Type>
+							  <Type>Delivery</Type>
 							  <Code>B</Code>
 							  <Surcharge>B</Surcharge>
 							</Service>
