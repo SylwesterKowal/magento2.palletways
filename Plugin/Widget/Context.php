@@ -6,11 +6,15 @@ namespace Wm21w\Palletways\Plugin\Widget;
 class Context
 {
     protected $backendUrl;
+    protected $_moduleHelper;
 
     public function __construct(
-        \Magento\Backend\Model\UrlInterface $backendUrl)
+        \Magento\Backend\Model\UrlInterface $backendUrl,
+        \Wm21w\Palletways\Helper\Data $moduleHelper
+    )
     {
         $this->backendUrl = $backendUrl;
+        $this->_moduleHelper = $moduleHelper;
     }
 
     public function afterGetButtonList(
@@ -18,6 +22,8 @@ class Context
         $buttonList
     )
     {
+        if (!$this->_moduleHelper->isEnabled()) return;
+
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $request = $objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
         $order_id = $request->getParam('order_id');

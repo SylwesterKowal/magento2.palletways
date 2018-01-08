@@ -110,7 +110,7 @@ class Index extends \Magento\Backend\Block\Widget\Container
 
     public function getCreateConsignment()
     {
-        if (!$this->_moduleHelper->isEnabled()) return;
+
 
         $helper = $this->getObjectManager()->create('Magento\Framework\Pricing\Helper\Data');
         $amount = $helper->currency(number_format($this->getOrder()->getGrandTotal()), false, false);
